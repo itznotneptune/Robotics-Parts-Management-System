@@ -6,11 +6,14 @@
 </head>
 
 <body>
-    
+
     <h1>VEX Parts Inventory</h1>
 
     <input type="text" placeholder="Search a part...">
     <button>Search</button>
+
+    <br><br>
+    <button onclick="document.getElementById('addDialog').showModal()">Add Part</button>
 
     <table border="1">
         <thead>
@@ -37,30 +40,32 @@
     </tbody>
     </table>
 
-    <h2>Add Part</h2>
+    <dialog id="addDialog">
+        <h2>Add Part</h2>
 
-    <label>Part Name:</label>
-    <input type="text" id="partName">
-    <br>
-    <label>Category:</label>
-    <select id="partCategory">
-        <option>Structure</option>
-        <option>Electronics</option>
-        <option>Pneumatics</option>
-        <option>Wheels</option>
-    </select>
-    <br>
-    <label>Quantity:</label>
-    <input type="number" id="partQty" value="0" min="0">
-    <br>
-    <label>Condition:</label>
-    <select id="partCondition">
-        <option>Good</option>
-        <option>Bent</option>
-        <option>Damaged</option>
-    </select>
-    <br>
-    <button>Add Part</button>
-
+        <label>Part Name:</label>
+        <input type="text" id="partName">
+        <br>
+        <label>Category:</label>
+        <select id="partCategory">
+            <option>Structure</option>
+            <option>Electronics</option>
+            <option>Pneumatics</option>
+            <option>Wheels</option>
+        </select>
+        <br>
+        <label>Quantity:</label>
+        <input type="number" id="partQty" value="0" min="0">
+        <br>
+        <label>Condition:</label>
+        <select id="partCondition">
+            <option>Good</option>
+            <option>Bent</option>
+            <option>Damaged</option>
+        </select>
+        <br>
+        <button>Add Part</button>
+        <button onclick="document.getElementById('addDialog').close()">Cancel</button>
+    </dialog>
 </body>
 </html>
