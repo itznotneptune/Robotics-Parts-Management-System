@@ -24,7 +24,7 @@
                 <th>Condition</th>
             </tr>
         </thead>
-    <tbody>
+    <tbody id="partsTable">
         <tr>
             <td>V5 Smart Motor</td>
             <td>Motors</td>
@@ -64,8 +64,22 @@
             <option>Damaged</option>
         </select>
         <br>
-        <button>Add Part</button>
-        <button onclick="document.getElementById('addDialog').close()">Cancel</button>
+        <button type="button" onclick="addPart()">Add Part</button>
+        <button type="button" onclick="document.getElementById('addDialog').close()">Cancel</button>
     </dialog>
+
+    <script>
+        function addPart() {
+            var name = document.getElementById("partName").value;
+            var category = document.getElementById("partCategory").value;
+            var qty = document.getElementById("partQty").value;
+            var condition = document.getElementById("partCondition").value;
+
+            var newRow = "<tr><td>" + name + "</td><td>" + category + "</td><td>" + qty + "</td><td>" + condition + "</td></tr>";
+            document.getElementById("partsTable").innerHTML += newRow;
+
+            document.getElementById("addDialog").close();
+        }
+    </script>
 </body>
 </html>
