@@ -24,20 +24,9 @@
                 <th>Condition</th>
             </tr>
         </thead>
-    <tbody id="partsTable">
-        <tr>
-            <td>V5 Smart Motor</td>
-            <td>Motors</td>
-            <td>8</td>
-            <td>Good</td>
-        </tr>
-        <tr>
-            <td>1x2x1x35 C-Channel (6 Pack)</td>
-            <td>Structure</td>
-            <td>15</td>
-            <td>Good</td>
-        </tr>
-    </tbody>
+        <tbody id="partsTable">
+            
+        </tbody>
     </table>
 
     <dialog id="addDialog">
@@ -69,14 +58,27 @@
     </dialog>
 
     <script>
+        var parts = [{name: "V5 Smart Motor", category: "Electronics", quantity: 10, condition: "Good"},
+                     {name: "1x2x1x35 C-Channel (6 Pack)", category: "Structure", quantity: 5, condition: "Good"}
+        ];
+
+        function tableRenderer() {
+            var tbody = document.getElementById("partsTable");
+            tbody.innerHTML = "";
+            parts.forEach(
+                function(part) {
+                    tbody.innerHTML += "<tr><td>" + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td></tr>";
+                });
+        }
+
         function addPart() {
             var name = document.getElementById("partName").value;
             var category = document.getElementById("partCategory").value;
             var qty = document.getElementById("partQty").value;
             var condition = document.getElementById("partCondition").value;
 
-            var newRow = "<tr><td>" + name + "</td><td>" + category + "</td><td>" + qty + "</td><td>" + condition + "</td></tr>";
-            document.getElementById("partsTable").innerHTML += newRow;
+            parts.push({name: name, category: category, quantity: qty, condition: condition});
+            tableRenderer();
 
             document.getElementById("addDialog").close();
         }
