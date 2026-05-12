@@ -57,31 +57,6 @@
         <button type="button" onclick="document.getElementById('addDialog').close()">Cancel</button>
     </dialog>
 
-    <script>
-        var parts = [{name: "V5 Smart Motor", category: "Electronics", quantity: 10, condition: "Good"},
-                     {name: "1x2x1x35 C-Channel (6 Pack)", category: "Structure", quantity: 5, condition: "Good"}
-        ];
-
-        function tableRenderer() {
-            var tbody = document.getElementById("partsTable");
-            tbody.innerHTML = "";
-            parts.forEach(
-                function(part) {
-                    tbody.innerHTML += "<tr><td>" + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td></tr>";
-                });
-        }
-
-        function addPart() {
-            var name = document.getElementById("partName").value;
-            var category = document.getElementById("partCategory").value;
-            var qty = document.getElementById("partQty").value;
-            var condition = document.getElementById("partCondition").value;
-
-            parts.push({name: name, category: category, quantity: qty, condition: condition});
-            tableRenderer();
-
-            document.getElementById("addDialog").close();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
