@@ -30,17 +30,40 @@ function getImage(partName) {
     return "";
 }
 
-var parts = [{name: "V5 Smart Motor", category: "Electronics", quantity: 10, condition: "Good"},
-                {name: "1x2x1x35 C-Channel (6 Pack)", category: "Structure", quantity: 5, condition: "Good"}
+var parts = [{name: "V5 Smart Motor", category: "Electronics", quantity: 10, condition: "Good", threshold: 5},
+                {name: "1x2x1x35 C-Channel (6 Pack)", category: "Structure", quantity: 10, condition: "Good", threshold: 5}
 ];
+
+function searchPart() {
+    var searching = document.getElementById("searchBar").value.toLowerCase();
+    var filtered = parts.filter(function(part) {
+        return part.name.toLowerCase().includes(searching) || part.category.toLowerCase().includes(searching);
+    });
+    var tbody = document.getElementById("partsTable");
+    tbody.innerHTML = "";
+
+    for (var i = 0; i < filtered.length; i++) {
+        var part = filtered[i];
+        tbody.innerHTML += "<tr><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td><td><button type='button' onclick='deletePart(\"" + part.name + "\")'>Delete</button></td></tr>";
+    }
+}
+
+function deletePart(partName) {
+    parts = parts.filter(function(part) {
+        return part.name !== partName;
+    });
+    tableRenderer();
+}
 
 function tableRenderer() {
     var tbody = document.getElementById("partsTable");
     tbody.innerHTML = "";
-    parts.forEach(
-        function(part) {
-            tbody.innerHTML += "<tr><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td></tr>";
-        });
+
+    for (var i = 0; i < parts.length; i++) {
+        var part = parts[i];
+        var color = part.quantity <= part.threshold ? "background-color: yellow;" : "";
+            tbody.innerHTML += "<tr style ='" + color + "'><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td><td>" + part.threshold + "</td><td><button type='button' onclick='deletePart(\"" + part.name + "\")'>Delete</button></td></tr>";
+    }
 }
 
 function addPart() {
@@ -48,8 +71,9 @@ function addPart() {
     var category = document.getElementById("partCategory").value;
     var qty = document.getElementById("partQty").value;
     var condition = document.getElementById("partCondition").value;
+    var threshold = document.getElementById("partThreshold").value;
 
-    parts.push({name: name, category: category, quantity: qty, condition: condition});
+    parts.push({name: name, category: category, quantity: qty, condition: condition, threshold: threshold});
     tableRenderer();
 
     document.getElementById("addDialog").close();

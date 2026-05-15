@@ -9,7 +9,7 @@
 
     <h1>VEX Parts Inventory</h1>
 
-    <input type="text" placeholder="Search a part...">
+    <input type="text" id="searchBar" placeholder="Search a part..." oninput="searchPart()">
     <button>Search</button>
 
     <br><br>
@@ -22,6 +22,8 @@
                 <th>Category</th>
                 <th>Quantity</th>
                 <th>Condition</th>
+                <th>Threshold</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody id="partsTable">
@@ -52,6 +54,9 @@
             <option>Bent</option>
             <option>Damaged</option>
         </select>
+        <br>
+        <label>Low Stock Threshold:</label>
+        <input type="number" id="partThreshold" value="5" min="0">
         <br>
         <button type="button" onclick="addPart()">Add Part</button>
         <button type="button" onclick="document.getElementById('addDialog').close()">Cancel</button>
