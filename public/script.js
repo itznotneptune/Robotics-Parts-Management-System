@@ -30,9 +30,21 @@ function getImage(partName) {
     return "";
 }
 
+function saveParts() {
+    localStorage.setItem("parts", JSON.stringify(parts));
+}
+
+function loadParts() {
+    var savedParts = localStorage.getItem("parts");
+    if (savedParts != null) {
+        parts = JSON.parse(savedParts);
+    }
+}
+
 var parts = [{name: "V5 Smart Motor", category: "Electronics", quantity: 10, condition: "Good", threshold: 5},
                 {name: "1x2x1x35 C-Channel (6 Pack)", category: "Structure", quantity: 10, condition: "Good", threshold: 5}
 ];
+loadParts();
 
 function searchPart() {
     var searching = document.getElementById("searchBar").value.toLowerCase();
@@ -52,6 +64,7 @@ function deletePart(partName) {
     parts = parts.filter(function(part) {
         return part.name !== partName;
     });
+    saveParts();
     tableRenderer();
 }
 
@@ -61,7 +74,7 @@ function tableRenderer() {
 
     for (var i = 0; i < parts.length; i++) {
         var part = parts[i];
-        var color = part.quantity <= part.threshold ? "background-color: yellow;" : "";
+        var color = parseInt(part.quantity) < parseInt(part.threshold) ? "background-color: yellow;" : "";
             tbody.innerHTML += "<tr style ='" + color + "'><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td><td>" + part.threshold + "</td><td><button type='button' onclick='deletePart(\"" + part.name + "\")'>Delete</button></td></tr>";
     }
 }
@@ -77,6 +90,7 @@ function addPart() {
     tableRenderer();
 
     document.getElementById("addDialog").close();
+    saveParts();
 }
 
 tableRenderer();
