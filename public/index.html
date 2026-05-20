@@ -13,23 +13,45 @@
     <button>Search</button>
 
     <br><br>
-    <button onclick="document.getElementById('addDialog').showModal()">Add Part</button>
+    <div style="display: flex; justify-content: space-between;">
+        <!--Left Table-->
+        <div>
+            <button onclick="document.getElementById('addDialog').showModal()">Add Part</button>
+            <br><br>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Part Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Condition</th>
+                        <th>Threshold</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="partsTable"></tbody>
+            </table>
+        </div>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Part Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Condition</th>
-                <th>Threshold</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="partsTable">
-            
-        </tbody>
-    </table>
+        <!--Right Table-->
+        <div>
+            <button onclick="document.getElementById('uploadBom').click()">Import BoM Table CSV</button>
+            <input type="file" id="uploadBom" accept=".csv" style="display:none" onchange="importBom(event)">
+            <br><br>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Part Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Part Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="bomTable"></tbody>
+            </table>
+        </div>
+    </div>
 
     <dialog id="addDialog">
         <h2>Add Part</h2>

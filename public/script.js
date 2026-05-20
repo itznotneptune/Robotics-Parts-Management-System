@@ -83,7 +83,10 @@ function addPart() {
 }
 
 
-
+function getCategoryFromUrl(url) {
+    var cutout = url.split("/").pop();
+    cutout = cutout.replace()
+}
 
 
 
