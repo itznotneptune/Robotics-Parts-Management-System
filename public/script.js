@@ -68,17 +68,6 @@ function deletePart(partName) {
     tableRenderer();
 }
 
-function tableRenderer() {
-    var tbody = document.getElementById("partsTable");
-    tbody.innerHTML = "";
-
-    for (var i = 0; i < parts.length; i++) {
-        var part = parts[i];
-        var color = parseInt(part.quantity) < parseInt(part.threshold) ? "background-color: yellow;" : "";
-            tbody.innerHTML += "<tr style ='" + color + "'><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td><td>" + part.threshold + "</td><td><button type='button' onclick='deletePart(\"" + part.name + "\")'>Delete</button></td></tr>";
-    }
-}
-
 function addPart() {
     var name = document.getElementById("partName").value;
     var category = document.getElementById("partCategory").value;
@@ -91,6 +80,22 @@ function addPart() {
 
     document.getElementById("addDialog").close();
     saveParts();
+}
+
+
+
+
+
+
+function tableRenderer() {
+    var tbody = document.getElementById("partsTable");
+    tbody.innerHTML = "";
+
+    for (var i = 0; i < parts.length; i++) {
+        var part = parts[i];
+        var color = parseInt(part.quantity) < parseInt(part.threshold) ? "background-color: yellow;" : "";
+            tbody.innerHTML += "<tr style ='" + color + "'><td>" + getImage(part.name) + part.name + "</td><td>" + part.category + "</td><td>" + part.quantity + "</td><td>" + part.condition + "</td><td>" + part.threshold + "</td><td><button type='button' onclick='deletePart(\"" + part.name + "\")'>Delete</button></td></tr>";
+    }
 }
 
 tableRenderer();
