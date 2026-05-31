@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <title>VEX Parts Inventory Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -11,12 +12,13 @@
 
     <input type="text" id="searchBar" placeholder="Search a part..." oninput="searchPart()">
     <button>Search</button>
+    <button id="deleteInventoryBtn" onclick="clearTable()">Delete Inventory</button>
 
     <br><br>
     <div style="display: flex; justify-content: space-between;">
         <!--Left Table-->
         <div>
-            <button onclick="document.getElementById('addDialog').showModal()">Add Part</button>
+            <button id="addPartBtn" onclick="document.getElementById('addDialog').showModal()">Add Part</button>
             <br><br>
             <table border="1">
                 <thead>
@@ -45,7 +47,7 @@
                         <th>Category</th>
                         <th>Quantity</th>
                         <th>Status</th>
-                        <th>Part Amount</th>
+                        <th>Part #</th>
                     </tr>
                 </thead>
                 <tbody id="bomTable"></tbody>

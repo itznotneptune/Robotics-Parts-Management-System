@@ -1,3 +1,5 @@
+`Parts table`
+
 var partsImages = {};
 
 fetch("../backend/partsImages.csv")
@@ -82,13 +84,65 @@ function addPart() {
     saveParts();
 }
 
+function clearTable() {
+    parts = [];
+    tableRenderer();
+    saveParts();
+}
+
+`BoM table stuff`
 
 function getCategoryFromUrl(url) {
     var cutout = url.split("/").pop();
-    cutout = cutout.replace()
+    cutout = cutout.replace("v5-", "").replace(".html", "");
+    return cutout.charAt(0).toUpperCase() + cutout.slice(1);
 }
 
+function getInventoryQty(partName) {
+    for (var i = 0; i < parts.length; i++) {
+        if (parts[i].name === partName) {
+            return parts[i].quantity;
+        }
+    }
+    return 0;
+}
 
+function getStatus(inventoryQty, needed) {
+    if(inventoryQty >= needed) return {text: "Complete", color: "background-color: Lightgreen"};
+    if (inventoryQty > 0) return {text: "Incomplete", color: "background-color: Yellow"};
+    return {text: "Missing", color: "background-color: Red"};
+}
+
+function importBom(bom) {
+    var file = bom.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(file) {
+        var lines = file.target.result.split("\n");
+        var tbody = document.getElementById("bomTable");
+        tbody.innerHTML = "";
+
+        for (var i = 1; i < lines.length; i++) {
+            if (lines[i].trim() === "") continue;
+
+            var cols = lines[i].split(",");
+            var qty = cols[1] ? cols[1].trim() : "0";
+            var partNumber = cols[2] ? cols[2].trim() : "";
+            var description = cols[3] ? cols[3].trim() : "";
+            var name = cols[4] ? cols[4].trim() : "";
+
+            var category = description.includes("vexrobotics.com") ? getCategoryFromUrl(description) : "N/A";
+            var inventoryQty = getInventoryQty(name);
+            var status = getStatus(inventoryQty, parseInt(qty));
+
+            tbody.innerHTML += "<tr style='" + status.color + "'><td>" + name + "</td><td>" + category + "</td><td>" + inventoryQty + "/" + qty + "</td><td>" + status.text + "</td><td>" + partNumber + "</td></tr>";
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+`Table renderer`
 
 function tableRenderer() {
     var tbody = document.getElementById("partsTable");
